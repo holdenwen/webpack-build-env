@@ -4,9 +4,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: '',
-    output: {
-        filename: '[name]-[chunckhash:8].js',
-        path: path.resolve(__dirname, 'dist')
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist'
     },
     module: {
         rules: [
@@ -36,5 +36,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'webpack environment demo'
         })
-    ]
+    ],
+    output: {
+        filename: '[name]-[chunckhash:8].js',
+        path: path.resolve(__dirname, 'dist')
+    },
 };
