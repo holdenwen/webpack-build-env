@@ -47,7 +47,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'runtime' // Specify the common bundle's name.
         }),
-        new ProvidePlugin({
+        new webpack.ProvidePlugin({
             lodash: 'lodash'
         }),
     ],
