@@ -47,6 +47,9 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'runtime' // Specify the common bundle's name.
         }),
+        new ProvidePlugin({
+            lodash: 'lodash'
+        }),
     ],
     output: {
         filename: '[name]-[chunkhash:8].js',
