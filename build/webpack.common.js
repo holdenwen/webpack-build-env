@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -13,11 +14,18 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.vue$/,
                 use: [
-                    'style-loder',
-                    'css-loaer'
+                    'vue-loader'
                 ]
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader',
+                    // publicPath: ''
+                }),
             },
             {
                 test: /\.(png|svg|jpe?g|gif)$/,
@@ -41,6 +49,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'webpack environment demo'
         }),
+        new ExtractTextPlugin({
+            filename: '[name].[chunkhash:8].css',
+            disable: false,
+            allChunks: true,
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor' // Specify the common bundle's name.
         }),
@@ -51,9 +64,12 @@ module.exports = {
             lodash: 'lodash'
         }),
     ],
+    resolve: {
+        extensions: ['.vue', '.js', '.css', 'json'],
+    },
     output: {
-        filename: '[name]-[chunkhash:8].js',
-        chunkFilename: '[name]-[chunkhash:8].js',
+        filename: '[name].[chunkhash:8].js',
+        chunkFilename: '[name].[chunkhash:8].js',  //Dynamic Imports
         path: path.resolve(__dirname, '../dist')
     },
 };
