@@ -1,5 +1,6 @@
 // import _ from 'lodash';
 require('./index.css');
+require('./index.scss');
 
 const textA = _.join(['webpack', 'environment', 'demo'], '');
 console.log(textA);
