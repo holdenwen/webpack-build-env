@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --open --config build/webpack.dev.js",
     "build": "webpack --config build/webpack.prod.js",
-    "server": "webpack-dev-server --open"
+    "server": "webpack-dev-server --open",
+    "analyse": "webpack --profile --json > stats.json"
   },
   "repository": {
     "type": "git",

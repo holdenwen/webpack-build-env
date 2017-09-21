@@ -72,22 +72,28 @@ module.exports = {
             disable: false,
             allChunks: true,
         }),
+        // https://webpack.js.org/plugins/commons-chunk-plugin/
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor' // Specify the common bundle's name.
+            name: 'vendor'  // Specify the common bundle's name
         }),
+        // https://webpack.js.org/guides/caching/#extracting-boilerplate
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'runtime' // Specify the common bundle's name.
+            name: 'runtime'  // Differ from vender's codes
         }),
+        // https://webpack.js.org/plugins/provide-plugin/
         new webpack.ProvidePlugin({
-            lodash: 'lodash'
+            _: 'lodash'
         }),
     ],
     resolve: {
-        extensions: ['.vue', '.js', '.css', 'json'],
+        alias: {
+            lodash: path.resolve(__dirname, '../node_modules/lodash'),
+        },
+        extensions: ['.vue', '.js', '.css', 'scss', 'json'],
     },
     output: {
         filename: '[name].[chunkhash:8].js',
-        chunkFilename: '[name].[chunkhash:8].js',  //Dynamic Imports
+        chunkFilename: '[name].[chunkhash:8].js',  // Dynamic imports
         path: path.resolve(__dirname, '../dist')
     },
 };
