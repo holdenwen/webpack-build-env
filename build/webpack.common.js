@@ -6,9 +6,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/index.js',
+        app: './src/app.js',
         vendor: [
+            'vue',
+            'vue-router',
             'lodash',
+            'axios',
         ]
     },
     module: {
@@ -65,7 +68,8 @@ module.exports = {
             // watch: true
         }),
         new HtmlWebpackPlugin({
-            title: 'webpack environment demo'
+            title: 'webpack environment demo',
+            template: path.resolve(__dirname, '../src/assets/index.html'),
         }),
         new ExtractTextPlugin({
             filename: '[name].[chunkhash:8].css',
@@ -82,12 +86,18 @@ module.exports = {
         }),
         // https://webpack.js.org/plugins/provide-plugin/
         new webpack.ProvidePlugin({
-            _: 'lodash'
+            _: 'lodash',
+            Ax: 'axios',
         }),
     ],
     resolve: {
         alias: {
             lodash: path.resolve(__dirname, '../node_modules/lodash'),
+            axios: path.resolve(__dirname, '../node_modules/axios'),
+            Assets: path.resolve(__dirname, '../src/assets'),
+            Components: path.resolve(__dirname, '../src/components'),
+            Configs: path.resolve(__dirname, '../src/configs'),
+            Views: path.resolve(__dirname, '../src/views'),
         },
         extensions: ['.vue', '.js', '.css', 'scss', 'json'],
     },
