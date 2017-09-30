@@ -18,9 +18,14 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                use: [
-                    'vue-loader'
-                ]
+                use: {
+                    loader: 'vue-loader',
+                    options: {
+                        loaders: {
+                            css: ['style-loader', 'css-loader', 'sass-loader'],
+                        },
+                    }
+                }
             },
             {
                 test: /\.js$/,
@@ -50,15 +55,21 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpe?g|gif)$/,
-                use: [
-                    'file-loader'
-                ]
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]?[hash:8]'
+                    }
+                }
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader'
-                ]
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]?[hash:8]'
+                    }
+                }
             },
         ]
     },
@@ -92,14 +103,16 @@ module.exports = {
     ],
     resolve: {
         alias: {
+            // library pathes
             lodash: path.resolve(__dirname, '../node_modules/lodash'),
             axios: path.resolve(__dirname, '../node_modules/axios'),
             Assets: path.resolve(__dirname, '../src/assets'),
+            // custom pathes
             Components: path.resolve(__dirname, '../src/components'),
             Configs: path.resolve(__dirname, '../src/configs'),
             Views: path.resolve(__dirname, '../src/views'),
         },
-        extensions: ['.vue', '.js', '.css', 'scss', 'json'],
+        extensions: ['.vue', '.js', '.css', '.scss', '.json'],
     },
     output: {
         filename: '[name].[chunkhash:8].js',
